@@ -1,0 +1,108 @@
+/* --- Retro Terminal Theme --- */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+    --bg-color: #000000;
+    --text-color: #33ff33; /* CRT green */
+    --header-color: #66ff66;
+    --border-color: rgba(51, 255, 51, 0.4);
+    --card-bg: rgba(0, 0, 0, 0.85);
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+/* --- Global Styling --- */
+body {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    text-shadow: 0 0 6px var(--text-color);
+}
+
+/* --- Scanline Overlay --- */
+[data-testid="stAppViewContainer"] > .main::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 0, 0.08) 0px,
+        transparent 2px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 100;
+    animation: flicker 1.5s infinite alternate;
+}
+@keyframes flicker {
+    from { opacity: 0.9; }
+    to { opacity: 1; }
+}
+
+/* --- Sidebar --- */
+[data-testid="stSidebar"] {
+    background: #000000;
+    border-right: 1px solid var(--border-color);
+}
+
+/* --- Main Content Containers --- */
+[data-testid="stVerticalBlock"], [data-testid="stHorizontalBlock"] {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 12px rgba(51, 255, 51, 0.2);
+}
+
+/* --- Headers --- */
+h1, h2, h3, h4 {
+    font-family: var(--font-mono);
+    color: var(--header-color);
+    text-transform: uppercase;
+    text-shadow: 0 0 8px var(--header-color);
+    position: relative;
+}
+h1::after, h2::after {
+    content: "_"; /* Blinking cursor */
+    animation: blink 1s step-start infinite;
+    margin-left: 5px;
+}
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* --- Buttons --- */
+.stButton > button {
+    font-family: var(--font-mono);
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px var(--text-color);
+}
+.stButton > button:hover {
+    background-color: var(--text-color);
+    color: #000000;
+    box-shadow: 0 0 12px var(--text-color);
+}
+
+/* --- Text Inputs & Selects --- */
+.stTextArea textarea, .stSelectbox > div, .stMultiSelect > div {
+    background-color: #000000;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-family: var(--font-mono);
+}
+
+/* --- DataFrames --- */
+.stDataFrame th {
+    background-color: #000000;
+    color: var(--header-color);
+}
+.stDataFrame td {
+    background-color: #0a0a0a;
+    color: var(--text-color);
+    text-shadow: 0 0 3px var(--text-color);
+}
